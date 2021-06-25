@@ -11,10 +11,11 @@
   ],
   "author": "Patrick Schaper",
   "license": "ISC",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": "https://github.com/yesman82/node-red-contrib-time-of-day",
+  "homepage": "https://github.com/yesman82/node-red-contrib-time-of-day#readme",
+  "bugs": {
+    "url": "https://github.com/yesman82/node-red-contrib-time-of-day/issues"
+  },
   "node-red": {
     "nodes": {
       "time-of-day": "time-of-day/time-of-day.js"
