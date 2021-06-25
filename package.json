@@ -11,6 +11,9 @@
   ],
   "author": "Patrick Schaper",
   "license": "ISC",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "node-red": {
     "nodes": {
       "time-of-day": "time-of-day/time-of-day.js"
