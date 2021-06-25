@@ -1,0 +1,82 @@
+<script type="text/javascript">
+  const start = new Date()
+  start.setSeconds(0, 0)
+  const end = new Date(start)
+  end.setMinutes(start.getMinutes() + 1)
+
+  const getTimeStringFromDate = date => `0${date.getHours()}`.slice(-2) + ':' + `0${date.getMinutes()}`.slice(-2) + ':' + `0${date.getSeconds()}`.slice(-2)
+  const getDateFromTimeString = str => new Date(null, null, null, ...str.split(':').map(t => parseInt(t)))
+  const getLabel = function () {
+    if (this.name) return this.name
+
+    if (this.startTime && this.endTime) {
+      const zeroSecs = /:00$/
+      let times = [this.startTime, this.endTime]
+
+      // shorten by removing seconds if both times end with zero seconds
+      if (times.every(t => zeroSecs.test(t))) times = times.map(t => t.replace(zeroSecs, ''))
+
+      return times.join(' - ')
+    }
+
+    return 'time of day'
+  }
+
+  const isValidTime = function (time) {
+    if (!/^\d\d:\d\d:\d\d$/.test(time)) return false
+    const startTime = $('#node-input-startTime').val() || this.startTime
+    const endTime = $('#node-input-endTime').val() || this.endTime
+    if (!startTime || !endTime) return true
+    return getDateFromTimeString(startTime) < getDateFromTimeString(endTime)
+  }
+
+  RED.nodes.registerType('time-of-day', {
+    category: 'function',
+    color: '#F3B567',
+    icon: 'switch.svg',
+    defaults: {
+      name: { value: '' },
+      startTime: {
+        value: getTimeStringFromDate(start),
+        validate: isValidTime.bind(this)
+      },
+      endTime: {
+        value: getTimeStringFromDate(end),
+        validate: isValidTime.bind(this)
+      },
+      outputs: { value: 2 }
+    },
+    paletteLabel: 'time of day',
+    label: getLabel,
+    inputs: 1,
+    outputs: 2,
+    oneditprepare: function () { $('#node-input-twoOutputs').prop('checked', this.outputs === 2) },
+    oneditsave: function () { this.outputs = $('#node-input-twoOutputs').prop('checked') ? 2 : 1 },
+  })
+</script>
+
+<script type="text/html" data-template-name="time-of-day">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-startTime"><i class="fa fa-clock-o"></i> Start Time</label>
+    <input type="time" id="node-input-startTime" step="1">
+  </div>
+  <div class="form-row">
+    <label for="node-input-endTime"><i class="fa fa-clock-o"></i> End Time</label>
+    <input type="time" id="node-input-endTime" step="1">
+  </div>
+  <div class="form-row">
+    <label for="node-input-twoOutputs"><i class="fa fa-clock-o"></i> Falsy Output</label>
+    <input type="checkbox" id="node-input-twoOutputs" style="width: auto">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="lower-case">
+  <p>
+    A simple node that forwards input message if the current time is within given range.<br>
+    The message is also forwarded through a second output on falsy results.
+  </p>
+</script>

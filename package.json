@@ -1,0 +1,24 @@
+{
+  "name": "node-red-contrib-time-of-day",
+  "version": "0.0.1",
+  "description": "This node checks if the current time is within given time range.",
+  "main": "time-of-day.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node-red",
+    "nodered",
+    "time",
+    "range",
+    "date"
+  ],
+  "author": "Patrick Schaper",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "time-of-day": "time-of-day.js"
+    }
+  },
+  "dependencies": {}
+}
