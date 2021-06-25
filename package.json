@@ -1,6 +1,6 @@
 {
   "name": "@yesman82/node-red-contrib-time-of-day",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This node checks if the current time is within given time range.",
   "keywords": [
     "node-red",
