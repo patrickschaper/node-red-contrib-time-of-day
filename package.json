@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-time-of-day",
+  "name": "@yesman82/node-red-contrib-time-of-day",
   "version": "0.0.1",
   "description": "This node checks if the current time is within given time range.",
   "keywords": [
@@ -12,12 +12,9 @@
   "author": "Patrick Schaper",
   "license": "ISC",
   "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yesman82/node-red-contrib-time-of-day.git"
-  },
+  "repository": "https://github.com/yesman82/node-red-contrib-time-of-day",
   "node-red": {
     "nodes": {
       "time-of-day": "time-of-day/time-of-day.js"
