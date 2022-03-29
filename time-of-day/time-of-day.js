@@ -43,10 +43,12 @@ module.exports = function (RED) {
       const end = (new Date(now)).setHours(node.endDate.getHours(), node.endDate.getMinutes(), node.endDate.getSeconds(), 0)
 
       if (now >= start && now < end) {
+        this.status({ fill: 'green', shape: 'dot', text: 'Time within range' });
         node.send([msg, null])
         return
       }
 
+      this.status({ fill: 'green', shape: 'ring', text: 'Time outside range' });
       node.send([null, msg])
     })
   }
