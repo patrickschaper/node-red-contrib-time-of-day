@@ -27,7 +27,7 @@
     const startTime = $('#node-input-startTime').val() || this.startTime
     const endTime = $('#node-input-endTime').val() || this.endTime
     if (!startTime || !endTime) return true
-    return getDateFromTimeString(startTime) < getDateFromTimeString(endTime)
+    return getDateFromTimeString(startTime) != getDateFromTimeString(endTime)
   }
 
   RED.nodes.registerType('time-of-day', {

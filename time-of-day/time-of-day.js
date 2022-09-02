@@ -43,7 +43,7 @@ module.exports = function (RED) {
       var end = (new Date(now)).setHours(node.endDate.getHours(), node.endDate.getMinutes(), node.endDate.getSeconds(), 0)
       const isFlipped = start > end
       if (isFlipped) {
-        [start, end] = [end start]
+        [start, end] = [end, start]
       }
       var isInRange
 
