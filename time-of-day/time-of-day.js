@@ -16,8 +16,8 @@ module.exports = function (RED) {
     }
 
     this.validateDates = function (startDate, endDate) {
-      if (startDate >= endDate) {
-        this.errorMsg('Start time >= end time')
+      if (startDate == endDate) {
+        this.errorMsg('Start time == end time')
         return false
       }
       return true
@@ -39,17 +39,27 @@ module.exports = function (RED) {
       if (!node.validateDates(node.startDate, node.endDate)) return
 
       const now = Date.now()
-      const start = (new Date(now)).setHours(node.startDate.getHours(), node.startDate.getMinutes(), node.startDate.getSeconds(), 0)
-      const end = (new Date(now)).setHours(node.endDate.getHours(), node.endDate.getMinutes(), node.endDate.getSeconds(), 0)
+      var start = (new Date(now)).setHours(node.startDate.getHours(), node.startDate.getMinutes(), node.startDate.getSeconds(), 0)
+      var end = (new Date(now)).setHours(node.endDate.getHours(), node.endDate.getMinutes(), node.endDate.getSeconds(), 0)
+      const isFlipped = start > end
+      if (isFlipped) {
+        [start, end] = [end start]
+      }
+      var isInRange
 
       if (now >= start && now < end) {
+        isInRange = true
+      } else {
+        isInRange = false
+      }
+      
+      if (isInRange == !isFlipped) {
         this.status({ fill: 'green', shape: 'dot', text: 'Time within range' });
         node.send([msg, null])
-        return
+      } else {
+        this.status({ fill: 'green', shape: 'ring', text: 'Time outside range' });
+        node.send([null, msg])
       }
-
-      this.status({ fill: 'green', shape: 'ring', text: 'Time outside range' });
-      node.send([null, msg])
     })
   }
 
